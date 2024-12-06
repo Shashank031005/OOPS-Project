@@ -23,6 +23,7 @@ protected:
     int fours;
     int sixes;
     bool wicket;
+    int wickets=0;
 
 public:
     // Setters
@@ -39,7 +40,8 @@ public:
     double getStrikeRate() const { return strikeRate; }
     int getFours() const { return fours; }
     int getSixes() const { return sixes; }
-    bool isWicket() const { return wicket; }
+    bool isWicket()const {return wicket; }
+    bool allout();
 
     // Other functions
     void setDetails(int r, int b, int f, int s, bool w) {

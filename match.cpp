@@ -61,9 +61,12 @@ void Match::startMatch() {
     for (int o = 0; o < overs; ++o) {
         cout << "Choose a bowler (index): ";
         cin >> bowlerIndex;
-
+        if(!curr)
+            break;
         int ballsRemaining = 6;
         while (ballsRemaining--) {
+            if(!curr)
+                break;
             int event;
             cout << "Enter runs/wickets (1, 2, 3, 4, 5, 6 for runs; 7 for Wicket; 8 for Extras; 9 for LegBye): ";
             cin >> event;
@@ -150,6 +153,7 @@ void Match::startMatch() {
 
                 case 7: // Wicket
                     cout << "Wicket! Choose a new batsman (index): ";
+                    bool curr = allout();
                     cin >> strikerIndex;
                     break;
 
