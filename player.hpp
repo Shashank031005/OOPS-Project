@@ -42,22 +42,6 @@ public:
     int getFours() const { return fours; }
     int getSixes() const { return sixes; }
     bool isWicket() const { return wicket; }
-
-    // Other functions
-    void setDetails(int r, int b, int f, int s, bool w) {
-        runs = r;
-        balls = b;
-        strikeRate = (balls != 0) ? (static_cast<double>(runs) / balls) * 100 : 0;
-        fours = f;
-        sixes = s;
-        wicket = w;
-    }
-
-    void display() override {
-        cout << "Batsman: " << name << " | Runs: " << runs << " | Balls: " << balls 
-             << " | SR: " << strikeRate << " | Fours: " << fours 
-             << " | Sixes: " << sixes << " | Out: " << (wicket ? "Yes" : "No") << endl;
-    }
 };
 
 class bowler : public Players {
@@ -84,21 +68,6 @@ public:
     int getWickets() const { return wickets; 
     friend istream& operator >> (istream&,bowler&);
     friend ostream& operator << (ostream&,bowler&);}
-
-    // Other functions
-    void setDetails(int b, int rc, int m, int w) {
-        balls = b;
-        runsConceded = rc;
-        economy = (balls != 0) ? (static_cast<double>(runsConceded) / (balls / 6)) : 0;
-        maidens = m;
-        wickets = w;
-    }
-
-    void display() override {
-        cout << "Bowler: " << name << " | Balls: " << balls << " | Runs: " << runsConceded 
-             << " | Economy: " << economy << " | Maidens: " << maidens 
-             << " | Wickets: " << wickets << endl;
-    }
 };
 
 #endif
