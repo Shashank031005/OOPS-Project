@@ -234,6 +234,8 @@ void Match::startMatch() {
         cout << firstBattingTeam->getName() << " wins by "
              << (firstBattingTeam->getScore() - secondBattingTeam->getScore()) << " runs!" << endl;
     }
+    displayMatchSummary(firstBattingTeam, secondBattingTeam);
+
 }
 
 void Match::displayMatchSummary(Team* team1, Team* team2) {
