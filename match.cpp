@@ -236,5 +236,47 @@ void Match::startMatch() {
     }
 }
 
+void Match::displayMatchSummary(Team* team1, Team* team2) {
+    cout << "\n===== MATCH SUMMARY =====" << endl;
+
+    // Winner declaration
+    if (team1->getScore() > team2->getScore()) {
+        cout << "Winner: " << team1->getName() << endl;
+    } else if (team2->getScore() > team1->getScore()) {
+        cout << "Winner: " << team2->getName() << endl;
+    } else {
+        cout << "It's a Tie!" << endl;
+    }
+
+    // Top Scorer
+    cout << "Top Scorer: " << team1->getTopScorer() << " from " << team1->getName() << " (Runs: " 
+         << team1->getTopScorer() << ")" << endl;
+    cout << "Top Scorer: " << team2->getTopScorer() << " from " << team2->getName() << " (Runs: " 
+         << team2->getTopScorer() << ")" << endl;
+
+    // Top Wicket Taker
+    cout << "Top Wicket-Taker: " << team1->getTopWicketTaker() << " from " << team1->getName() << " (Wickets: " 
+         << team1->getTopWicketTaker() << ")" << endl;
+    cout << "Top Wicket-Taker: " << team2->getTopWicketTaker() << " from " << team2->getName() << " (Wickets: " 
+         << team2->getTopWicketTaker() << ")" << endl;
+
+    // Team 1 Details
+    cout << team1->getName() << " Score: " << team1->getScore() << "/" << team1->getWickets() << endl;
+    cout << "Batsmen Stats: " << endl;
+    team1->displayPlayers();
+    cout << "Bowler Stats: " << endl;
+    team1->displayPlayers();
+
+    // Team 2 Details
+    cout << team2->getName() << " Score: " << team2->getScore() << "/" << team2->getWickets() << endl;
+    cout << "Batsmen Stats: " << endl;
+    team2->displayPlayers();
+    cout << "Bowler Stats: " << endl;
+    team2->displayPlayers();
+
+    cout << "\n===== End of Match Summary =====" << endl;
+}
+
+
 
 
