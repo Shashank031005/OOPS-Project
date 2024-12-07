@@ -199,6 +199,11 @@ void Match::startMatch() {
                     ++ballsRemaining; // Retry the ball
                     break;
             }
+            if (battingTeam->isAllOut()) {
+            cout << "All-Out! End of the innings." << endl;
+            displayOverSummary(battingTeam, bowlingTeam, bowlerIndex);
+            return;
+            }
             displayOverSummary(battingTeam, bowlingTeam, bowlerIndex);
 
         }
