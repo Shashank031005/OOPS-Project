@@ -25,6 +25,8 @@ public:
             delete p;
         }
     }
+string getTopWicketTaker();
+string getTopWicketTaker();
 };
 
 #endif
