@@ -34,6 +34,7 @@ public:
     // Methods
     void display();
     void startMatch();
+    void displayOverSummary(Team*,Team*,int);
 };
 
 
