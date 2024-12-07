@@ -199,6 +199,8 @@ void Match::startMatch() {
                     ++ballsRemaining; // Retry the ball
                     break;
             }
+            displayOverSummary(battingTeam, bowlingTeam, bowlerIndex);
+
         }
 
         // Swap striker and non-striker at the end of the over
