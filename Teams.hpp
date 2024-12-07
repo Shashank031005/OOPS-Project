@@ -19,6 +19,7 @@ public:
     int getWickets() { return wickets; }
     vector<Players*> getPlayers() { return players; }
     void displayPlayers();
+    bool isAllOut();
     ~Team() {
         for (auto p : players) {
             delete p;
