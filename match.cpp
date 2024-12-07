@@ -9,7 +9,28 @@ void Match::display() {
     cout << "Bowler Details:" << endl;
     t2.displayPlayers();
 }
+void Match::displayOverSummary(Team* battingTeam, Team* bowlingTeam, int bowlerIndex) {
+    cout << "---------- Over Summary ----------" << endl;
+    cout << "Team Score: " << battingTeam->getScore() << "/" << battingTeam->getWickets() << endl;
 
+    cout << "Batsmen Stats:" << endl;
+    for (auto player : battingTeam->getPlayers()) {
+        batsmen* b = dynamic_cast<batsmen*>(player);
+        if (b) {
+            cout << b->getName() << " - Runs: " << b->getRuns() << ", Balls: " << b->getBalls()
+                 << ", 4s: " << b->getFours() << ", 6s: " << b->getSixes()
+                 << (b->isOut() ? " (OUT)" : "") << endl;
+        }
+    }
+
+    cout << "Bowler Stats:" << endl;
+    bowler* b = dynamic_cast<bowler*>(bowlingTeam->getPlayers()[bowlerIndex]);
+    if (b) {
+        cout << b->getName() << " - Overs: " << b->getBalls() / 6 << "." << b->getBalls() % 6
+             << ", Runs: " << b->getEconomy() << ", Wickets: " << b->getWickets() << endl;
+    }
+    cout << "----------------------------------" << endl;
+}
 void Match::startMatch() {
     int n;
     cout << "Enter number of overs: ";
