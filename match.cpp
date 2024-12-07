@@ -20,6 +20,7 @@ void Match::startMatch() {
     cin >> n;
     for (int i = 0; i < n; i++) {
         batsmen* b = new batsmen();
+        cin>>(*b);
         t1.addPlayer(b);
     }
 
@@ -27,6 +28,7 @@ void Match::startMatch() {
     cin >> n;
     for (int i = 0; i < n; i++) {
         bowler* b = new bowler();
+        cin>>(*b);
         t2.addPlayer(b);
     }
 
@@ -35,6 +37,7 @@ void Match::startMatch() {
     cin >> n;
     for (int i = 0; i < n; i++) {
         batsmen* b = new batsmen();
+        cin>>(*b);
         t2.addPlayer(b);
     }
 
@@ -42,6 +45,7 @@ void Match::startMatch() {
     cin >> n;
     for (int i = 0; i < n; i++) {
         bowler* b = new bowler();
+        cin>>(*b);
         t1.addPlayer(b);
     }
 
