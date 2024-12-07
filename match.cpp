@@ -76,6 +76,7 @@ void Match::startMatch() {
                 case 1:
                 case 3:
                 case 5: { // Runs scored
+                    battingTeam->updateScore(event);
                     batsmen* striker = dynamic_cast<batsmen*>(battingTeam->getPlayers()[strikerIndex]);
                     striker->setDetails(
                         striker->getRuns() + event, // Add runs
@@ -99,6 +100,7 @@ void Match::startMatch() {
                 }
 
                 case 2: { // Two runs scored
+                    battingTeam->updateScore(event);
                     batsmen* striker = dynamic_cast<batsmen*>(battingTeam->getPlayers()[strikerIndex]);
                     striker->setDetails(
                         striker->getRuns() + 2, // Add runs
@@ -117,6 +119,7 @@ void Match::startMatch() {
                 }
 
                 case 4: { // Four runs scored
+                    battingTeam->updateScore(event);
                     batsmen* striker = dynamic_cast<batsmen*>(battingTeam->getPlayers()[strikerIndex]);
                     striker->setDetails(
                         striker->getRuns() + 4, // Add runs
@@ -135,6 +138,7 @@ void Match::startMatch() {
                 }
 
                 case 6: { // Six runs scored
+                    battingTeam->updateScore(event);
                     batsmen* striker = dynamic_cast<batsmen*>(battingTeam->getPlayers()[strikerIndex]);
                     striker->setDetails(
                         striker->getRuns() + 6, // Add runs
@@ -154,6 +158,7 @@ void Match::startMatch() {
 
                 case 7: // Wicket
                     cout << "Wicket! Choose a new batsman (index): ";
+                    battingTeam->updateWickets();
                     cin >> strikerIndex;
                     break;
 
