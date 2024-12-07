@@ -32,4 +32,32 @@ friend ostream& operator << (ostream& o,bowler& b){
              << " | Economy: " << b.economy << " | Maidens: " << b.maidens 
              << " | Wickets: " << b.wickets << endl;
 }
+
+void batsmen :: setDetails(int r, int b, int f, int s, bool w) {
+        runs = r;
+        balls = b;
+        strikeRate = (balls != 0) ? (static_cast<double>(runs) / balls) * 100 : 0;
+        fours = f;
+        sixes = s;
+        wicket = w;
+    }
+
+void batsmen :: display() override {
+        cout << "Batsman: " << name << " | Runs: " << runs << " | Balls: " << balls 
+             << " | SR: " << strikeRate << " | Fours: " << fours 
+             << " | Sixes: " << sixes << " | Out: " << (wicket ? "Yes" : "No") << endl;
+    }
+
+void bowler :: setDetails(int b, int rc, int m, int w) {
+        balls = b;
+        runsConceded = rc;
+        economy = (balls != 0) ? (static_cast<double>(runsConceded) / (balls / 6)) : 0;
+        maidens = m;
+        wickets = w;
+    }
+void bowler ::  display() override {
+        cout << "Bowler: " << name << " | Balls: " << balls << " | Runs: " << runsConceded 
+             << " | Economy: " << economy << " | Maidens: " << maidens 
+             << " | Wickets: " << wickets << endl;
+    }
   
