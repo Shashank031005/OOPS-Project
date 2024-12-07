@@ -5,3 +5,6 @@ void Team::displayPlayers() {
         player->display();
     }
 }
+bool Team::isAllOut() {
+    return wickets == players.size();
+}
