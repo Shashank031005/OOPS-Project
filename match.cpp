@@ -31,51 +31,8 @@ void Match::displayOverSummary(Team* battingTeam, Team* bowlingTeam, int bowlerI
     }
     cout << "----------------------------------" << endl;
 }
-void Match::startMatch() {
-    int n;
-    cout << "Enter number of overs: ";
-    cin >> overs;
 
-    // Adding players to Team 1
-    cout << "Enter the number of batsmen in team " << team1 << ": ";
-    cin >> n;
-    for (int i = 0; i < n; i++) {
-        batsmen* b = new batsmen();
-        cin>>(*b);
-        t1.addPlayer(b);
-    }
-
-    cout << "Enter the number of bowlers in team " << team2 << ": ";
-    cin >> n;
-    for (int i = 0; i < n; i++) {
-        bowler* b = new bowler();
-        cin>>(*b);
-        t2.addPlayer(b);
-    }
-
-    // Adding players to Team 2
-    cout << "Enter the number of batsmen in team " << team2 << ": ";
-    cin >> n;
-    for (int i = 0; i < n; i++) {
-        batsmen* b = new batsmen();
-        cin>>(*b);
-        t2.addPlayer(b);
-    }
-
-    cout << "Enter the number of bowlers in team " << team1 << ": ";
-    cin >> n;
-    for (int i = 0; i < n; i++) {
-        bowler* b = new bowler();
-        cin>>(*b);
-        t1.addPlayer(b);
-    }
-
-    cout << "Who is batting first? 1 -> " << team1 << ", 2 -> " << team2 << endl;
-    cin >> n;
-
-    Team* battingTeam = (n == 1) ? &t1 : &t2;
-    Team* bowlingTeam = (n == 1) ? &t2 : &t1;
-
+void Match::playInnings(Team* battingTeam, Team* bowlingTeam, int targetScore=-1) {
     int strikerIndex, nonStrikerIndex, bowlerIndex;
 
     cout << "Choose a batsman on striker's end (index): ";
@@ -178,39 +135,106 @@ void Match::startMatch() {
                 }
 
                 case 7: // Wicket
-                    cout << "Wicket! Choose a new batsman (index): ";
                     battingTeam->updateWickets();
+                    if (battingTeam->isAllOut()) {
+                        cout << "All-Out! End of the innings." << endl;
+                        displayOverSummary(battingTeam, bowlingTeam, bowlerIndex);
+                        return; // End the innings
+                    }
+                    cout << "Wicket! Choose a new batsman (index): ";
                     cin >> strikerIndex;
                     break;
-
-                case 8: // Extras
-                    battingTeam->updateScore(1); // Add extra to team score
-                    break;
-
-                case 9: // LegBye
-                    battingTeam->updateScore(1); // Add leg bye to team score
-                    if (1 % 2 != 0) {
-                        swap(strikerIndex, nonStrikerIndex);
-                    }
-                    break;
-
-                default:
-                    cout << "Invalid input! Try again." << endl;
-                    ++ballsRemaining; // Retry the ball
-                    break;
             }
+             if (targetScore != -1 && battingTeam->getScore() > targetScore) {
+                cout << "Target reached! " << battingTeam->getName() << " wins by "
+                     << (10 - battingTeam->getWickets()) << " wickets!" << endl;
+                return; // Match ends as the second team wins
+            }
+
             if (battingTeam->isAllOut()) {
-            cout << "All-Out! End of the innings." << endl;
-            displayOverSummary(battingTeam, bowlingTeam, bowlerIndex);
-            return;
+                cout << "All-Out! End of the innings." << endl;
+                displayOverSummary(battingTeam, bowlingTeam, bowlerIndex);
+                return; // End the innings
             }
-            displayOverSummary(battingTeam, bowlingTeam, bowlerIndex);
-
         }
 
         // Swap striker and non-striker at the end of the over
         swap(strikerIndex, nonStrikerIndex);
+
+        // Display over summary
+        displayOverSummary(battingTeam, bowlingTeam, bowlerIndex);
+    }
+
+    cout << "End of innings. Team Score: " << battingTeam->getScore() << "/" << battingTeam->getWickets() << endl;
+}
+
+void Match::startMatch() {
+    int n;
+    cout << "Enter number of overs: ";
+    cin >> overs;
+
+    // Adding players to Team 1
+    cout << "Enter the number of batsmen in team " << team1 << ": ";
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        batsmen* b = new batsmen();
+        cin>>(*b);
+        t1.addPlayer(b);
+    }
+
+    cout << "Enter the number of bowlers in team " << team2 << ": ";
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        bowler* b = new bowler();
+        cin>>(*b);
+        t2.addPlayer(b);
+    }
+
+    // Adding players to Team 2
+    cout << "Enter the number of batsmen in team " << team2 << ": ";
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        batsmen* b = new batsmen();
+        cin>>(*b);
+        t2.addPlayer(b);
+    }
+
+    cout << "Enter the number of bowlers in team " << team1 << ": ";
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        bowler* b = new bowler();
+        cin>>(*b);
+        t1.addPlayer(b);
+    }
+
+    cout << "Who is batting first? 1 -> " << team1 << ", 2 -> " << team2 << endl;
+    cin >> n;
+
+   Team* firstBattingTeam = (n == 1) ? &t1 : &t2;
+    Team* firstBowlingTeam = (n == 1) ? &t2 : &t1;
+
+    Team* secondBattingTeam = (n == 1) ? &t2 : &t1;
+    Team* secondBowlingTeam = (n == 1) ? &t1 : &t2;
+
+    // First innings
+    cout << firstBattingTeam->getName() << " is batting first." << endl;
+    playInnings(firstBattingTeam, firstBowlingTeam);
+
+    // Second innings
+    cout << secondBattingTeam->getName() << " is batting second." << endl;
+    playInnings(secondBattingTeam, secondBowlingTeam, firstBattingTeam->getScore());
+
+    // Determine winner
+    if (secondBattingTeam->getScore() > firstBattingTeam->getScore()) {
+        cout << secondBattingTeam->getName() << " wins by "
+             << (10 - secondBattingTeam->getWickets()) << " wickets!" << endl;
+    } else if (secondBattingTeam->getScore() == firstBattingTeam->getScore()) {
+        cout << "Match is a tie!" << endl;
+    } else {
+        cout << firstBattingTeam->getName() << " wins by "
+             << (firstBattingTeam->getScore() - secondBattingTeam->getScore()) << " runs!" << endl;
     }
 }
+
 
 
