@@ -31,7 +31,9 @@ public:
     void setStrikeRate(double sr) { strikeRate = sr; }
     void setFours(int f) { fours = f; }
     void setSixes(int s) { sixes = s; }
-    void setWicket(bool w) { wicket = w; }
+    void setWicket(bool w) { wicket = w;
+    friend istream& operator >> (istream&,batsmen&);
+    friend ostream& operator << (ostream&,batsmen&);}
 
     // Getters
     int getRuns() const { return runs; }
@@ -79,7 +81,9 @@ public:
     int getRunsConceded() const { return runsConceded; }
     double getEconomy() const { return economy; }
     int getMaidens() const { return maidens; }
-    int getWickets() const { return wickets; }
+    int getWickets() const { return wickets; 
+    friend istream& operator >> (istream&,bowler&);
+    friend ostream& operator << (ostream&,bowler&);}
 
     // Other functions
     void setDetails(int b, int rc, int m, int w) {
